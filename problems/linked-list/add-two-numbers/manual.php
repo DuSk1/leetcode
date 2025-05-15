@@ -1,5 +1,37 @@
 <?php
 
+
+function addTwoNumbersForward($num1, $num2): array
+{
+    $result = [];
+    $carry = 0;
+    $i = count($num1) - 1;
+    $j = count($num2) - 1;
+
+    while ($i >= 0 || $j >= 0 || $carry > 0) {
+        $digit1 = ($i >= 0) ? $num1[$i] : 0;
+        $digit2 = ($j >= 0) ? $num2[$j] : 0;
+
+        $total = $digit1 + $digit2 + $carry;
+        $carry = intdiv($total, 10);
+        $result[] = $total % 10;
+
+        $i--;
+        $j--;
+    }
+
+    // Так как цифры добавлялись от младших к старшим — нужно развернуть массив
+    return array_reverse($result);
+}
+
+// Пример использования:
+$num1 = [3, 4, 2];
+$num2 = [4, 6, 5];
+
+print_r(addTwoNumbersForward($num1, $num2)); // Вывод: Array ( [0] => 8 [1] => 0 [2] => 7 )
+
+exit(0);
+
 class Solution2
 {
     public function addTwoNumbers(ListNode $l1, ListNode $l2): ?ListNode
