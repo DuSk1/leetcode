@@ -1,82 +1,39 @@
 <?php /** @noinspection ALL */
 
-
-final class Solution
+final class Solution2
 {
-    /*
-    nums1 =
-[2,1,3,4,5]
-     |
-nums2 =
-[3,1,2,5,4]
-     |
-    */
-    public function commonPrefixArray(array $num1, array $num2): array
+    public function prefixArray(array $nums1, array $nums2): array
     {
-        $n = count($num1); // n = 5
+        $commonCount = 0;
 
-        $prefixCommonArray = array_fill(0, $n, 0); // [0,0,0,0,0]
+        $countMap = array_fill(0, max(count($nums1), count($nums2)), 0);
 
-        $countMap = [];
-        $countCommon = 0;
+        $prefixArray = [];
 
-        for ($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i < count($nums1); $i++) {
 
-            // i = 2
+            $commonCountNum1 = &$countMap[$nums1[$i]];
+            $commonCountNum2 = &$countMap[$nums2[$i]];
 
-            $commonMapNum1 = &$countMap[$num1[$i]]; // 3 => 1
-            $commonMapNum2 = &$countMap[$num2[$i]]; // 2 => 1
+            $commonCountNum1++;
 
-            $commonMapNum1++; // 3 => 2
-            /*
-                [
-                   2 => 1,
-                   3 => 2,
-                   1 => 2
-                ]
-            */
-
-            if ($commonMapNum1 === 2) {
-                $countCommon++; // 2
+            if ($commonCountNum1 == 2) {
+                $commonCount++;
             }
 
-            $commonMapNum2++; // 2 => 2
-            /*
-                [
-                    2 => 2,
-                    3 => 2,
-                    1 => 2
-                ]
-            */
+            $commonCountNum2++;
 
-            if ($commonMapNum2 === 2) {
-                $countCommon++; // 3
+            if ($commonCountNum2 == 2) {
+                $commonCount++;
             }
 
-            $prefixCommonArray[$i] = $countCommon;
-            /*
-                [
-                    0 => 0,
-                    1 => 1
-                    2 => 3
-                ]
-            */
+            $prefixArray[$i] = $commonCount;
+
         }
 
-        return $prefixCommonArray;
+        return $prefixArray;
     }
 }
-
-// Пример использования
-$nums1 = [1, 2, 3, 4, 5];
-$nums2 = [3, 4, 5, 6, 7];
-
-$s = new Solution();
-$result = $s->commonPrefixArray($nums1, $nums2);
-
-print_r($result); // [0, 0, 1, 2, 3]
-
-exit(0);
 
 
 /**
