@@ -1,5 +1,34 @@
 <?php /** @noinspection ALL */
 
+
+$nums = [1, 4, 5, -3, 7, 0, 2, 4];
+
+/**
+ * Время: O(n), где n — размер входного массива.
+ * Память: O(1), так как мы используем только несколько переменных для хранения промежуточных значений.
+ *
+ * @param array $nums
+ * @return array
+ */
+function prefixArray(array $nums): array
+{
+    $prefixArray = [0];
+    $sum = 0;
+
+    foreach ($nums as $num) {
+        $sum += $num;
+        $prefixArray[] = $sum;
+    }
+
+    return $prefixArray;
+}
+
+$result = prefixArray($nums);
+print_r($result); // $prefix = [0, 1, 5, 10, 7, 14, 14, 16, 20]
+
+
+exit(0);
+
 final class Solution2
 {
     public function prefixArray(array $nums1, array $nums2): array
