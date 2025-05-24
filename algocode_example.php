@@ -1,6 +1,15 @@
 <?php /** @noinspection ALL */
 
 
+/**
+ * https://algocode.io/courses/algo-big-tech/problem/letter-combinations
+ *
+ * @param int $index
+ * @param string $s
+ * @param array $currentCombination
+ * @param array $allCombinations
+ * @return void
+ */
 function bruteforce(int $index, string $s, array &$currentCombination, array &$allCombinations): void
 {
     // Если дошли до конца строки, добавляем текущую комбинацию в результат
