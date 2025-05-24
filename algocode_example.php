@@ -1,6 +1,58 @@
 <?php /** @noinspection ALL */
 
 
+function bruteforce(int $index, string $s, array &$currentCombination, array &$allCombinations): void
+{
+    // Если дошли до конца строки, добавляем текущую комбинацию в результат
+    if ($index === strlen($s)) {
+        $allCombinations[] = implode("", $currentCombination);
+        return;
+    }
+
+    $phoneMap = [
+        "2" => "abc", "3" => "def", "4" => "ghi", "5" => "jkl",
+        "6" => "mno", "7" => "pqrs", "8" => "tuv", "9" => "wxyz"
+    ];
+
+    // Получаем текущую цифру
+    $digit = $s[$index];
+
+    // Перебираем все буквы, соответствующие текущей цифре
+    foreach (str_split($phoneMap[$digit]) as $letter) {
+        // Добавляем букву в текущую комбинацию
+        $currentCombination[] = $letter;
+        // Рекурсивно перебираем оставшиеся цифры
+        bruteforce($index + 1, $s, $currentCombination, $allCombinations);
+        // Убираем букву, чтобы попробовать следующую
+        array_pop($currentCombination);
+    }
+}
+
+function generateCombinations(string $s): array
+{
+    // Возвращает все комбинации букв для заданных цифр (рекурсивный способ).
+    if (strlen($s) === 0) {
+        return [];
+    }
+
+    // Результирующий список всех комбинаций
+    $result = [];
+    $currentCombination = [];
+    // Запускаем рекурсивный перебор
+    bruteforce(0, $s, $currentCombination, $result);
+    return $result;
+}
+
+
+// Пример использования
+$s = "24";
+$result = generateCombinations($s);
+xdebug_var_dump($result); // Вывод: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+
+exit(0);
+
+
 $nums = [1, 4, 5, -3, 7, 0, 2, 4];
 
 /**
