@@ -23,9 +23,9 @@ class Solution
         return $result;
     }
 
-    public function backtrack($candidates, $target, $current, $start, &$result): void
+    public function backtrack($candidates, $totalLeft, $current, $start, &$result): void
     {
-        if ($target == 0) {
+        if ($totalLeft == 0) {
             $result[] = $current;
             return;
         }
@@ -36,25 +36,23 @@ class Solution
                 continue;
             }
 
-            if ($candidates[$i] > $target) {
+            if ($candidates[$i] > $totalLeft) {
                 break;
             }
 
             $current[] = $candidates[$i];
 
-            $this->backtrack($candidates, $target - $candidates[$i], $current, $i + 1, $result);
+            $this->backtrack($candidates, $totalLeft - $candidates[$i], $current, $i + 1, $result);
 
             array_pop($current);
         }
     }
 }
 
-// Example usage
-
 $solution = new Solution();
 
-$candidates = [10, 1, 2, 7, 6, 1, 5];
-$target = 8;
+$candidates = [2,5,2,1,2]; // sorted: [1,2,2,2,5]
+$target = 5;
 
 $result = $solution->combinationSum2($candidates, $target);
 print_r($result); // Output: [[1,1,6],[1,2,5],[1,7],[2,6]]
