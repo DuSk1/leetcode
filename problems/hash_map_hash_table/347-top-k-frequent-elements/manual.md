@@ -27,4 +27,10 @@ Note:
 - It's guaranteed that the answer is unique, in other words the set of the top k frequent elements is unique.
 - You can return the answer in any order.
 
+**Решение**
 
+Составить хэш таблицу: элемент => частота
+
+Сделать массив frequency, где ключ частота, а значение - массив элементов, которые встречаются с этой частотой.
+
+Идем по frequency с конца, в каждой частоте обходим массивы и добавляем в ответ пока k != 0.
