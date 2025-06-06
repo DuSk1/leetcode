@@ -12,9 +12,9 @@ function addTwoNumbersForward($num1, $num2): array
         $digit1 = ($i >= 0) ? $num1[$i] : 0;
         $digit2 = ($j >= 0) ? $num2[$j] : 0;
 
-        $total = $digit1 + $digit2 + $carry;
-        $carry = intdiv($total, 10);
-        $result[] = $total % 10;
+        $sum = $digit1 + $digit2 + $carry;
+        $carry = intdiv($sum, 10);
+        $result[] = $sum % 10;
 
         $i--;
         $j--;
