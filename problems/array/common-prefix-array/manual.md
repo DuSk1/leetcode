@@ -63,6 +63,6 @@ Right sum = 1
 ### Complexity
 Time: O(n)
 
-Mem: O(1)
+Mem: O(n) - потому что есть доп массив prefixArray
 
 
