@@ -19,9 +19,8 @@ mem: O(n)
 
 function subsequenceSumK(array $nums, int $k): int
 {
-    // Храним встретившиеся префиксные суммы (левая граница)
-    $hashmap = [1];
-    // Текущая префиксная сумма (правая граница)
+    $hashMap = [1];
+
     $currentSum = 0;
 
     foreach ($nums as $idx => $num) {
@@ -30,11 +29,11 @@ function subsequenceSumK(array $nums, int $k): int
 
         $difference = $currentSum - $k;
 
-        if (isset($hashmap[$difference])) {
+        if (isset($hashMap[$difference])) {
             return $idx;
         }
 
-        $hashmap[$currentSum] = ($hashmap[$currentSum] ?? 0) + 1;
+        $hashMap[$currentSum] = ($hashMap[$currentSum] ?? 0) + 1;
     }
 
     return -1;
