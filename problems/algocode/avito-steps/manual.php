@@ -1,53 +1,71 @@
-<?php
-
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
- * Оценка сложности
- *
- * Время: O(n), где n - число записей о всех пользователях.
- * Память: O(n), где n - число записей о всех пользователях.
- *
- * @param array $statistics 3D array: days -> users -> [user_id, steps]
- * @return array List of winner user IDs
+time: O(n), где n - кол-во пользовательских результатов
+mem: O(n), где n - кол-во пользователей пользовательских результатов
  */
-function find_competition_winners(array $statistics): array {
-    $userDays = [];
-    $userSteps = [];
-    $daysTotal = count($statistics);
+final class Solution
+{
+    public function champions(array $statistic): array
+    {
+        $totalCompetitionDays = count($statistic);
 
-    foreach ($statistics as $day) {
-        foreach ($day as [$userId, $steps]) {
-            $userDays[$userId] = ($userDays[$userId] ?? 0) + 1;
-            $userSteps[$userId] = ($userSteps[$userId] ?? 0) + $steps;
+        if($totalCompetitionDays <= 0) {
+            return [
+                'userIds' => [],
+                'steps' => 0
+            ];
         }
-    }
 
-    $maxSteps = 0;
-    foreach ($userDays as $userId => $days) {
-        if ($days === $daysTotal) {
-            $maxSteps = max($maxSteps, $userSteps[$userId]);
+        $userDays = $userSteps = [];
+
+        foreach ($statistic as $day) {
+            foreach ($day as ['userId' => $userId, 'steps' => $steps]) {
+
+                $userDays[$userId] = ($userDays[$userId] ?? 0) + 1;
+                $userSteps[$userId] = ($userSteps[$userId] ?? 0) + $steps;
+
+            }
         }
-    }
 
-    $winners = [];
-    foreach ($userDays as $userId => $days) {
-        if ($days === $daysTotal && $userSteps[$userId] === $maxSteps) {
-            $winners[] = $userId;
+        $maxSteps = 0;
+
+        foreach ($userDays as $userId => $dayCounter) {
+            if ($dayCounter == $totalCompetitionDays) {
+                $maxSteps = max($userSteps[$userId], $maxSteps);
+            }
         }
-    }
 
-    return $winners;
+        $winners = [];
+
+        foreach ($userDays as $userId => $dayCounter) {
+            if (
+                $dayCounter == $totalCompetitionDays
+                && $maxSteps == $userSteps[$userId]
+            ) {
+
+                $winners[] = $userId;
+            }
+        }
+
+        return [
+            'userIds' => $winners,
+            'steps' => $maxSteps
+        ];
+    }
 }
 
-$statistics = [
+
+
+$statistic = [
     [
         ['userId' => 1, 'steps' => 1000],
-        ['userId' => 2, 'steps' => 1500],
+        ['userId' => 2, 'steps' => 1500]
     ],
     [
         ['userId' => 2, 'steps' => 1000],
     ],
 ];
 
-$winners = find_competition_winners($statistics);
-print_r($winners);
-
+$solution = new Solution();
+$result = $solution->champions($statistic);
+print_r($result);
