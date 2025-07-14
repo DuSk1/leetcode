@@ -3,7 +3,7 @@
  * @param array<int> $array
  * @return int[]
  */
-function quicksort(array $array): array
+function quickSort(array $array): array
 {
     if (count($array) <= 1) {
         return $array;
@@ -20,7 +20,7 @@ function quicksort(array $array): array
         }
     }
 
-    return array_merge(quicksort($left), [$pivot], quicksort($right));
+    return array_merge(quickSort($left), [$pivot], quickSort($right));
 }
 
 // Пример использования
@@ -28,6 +28,6 @@ $array = [5, 3, 8, 4, 2];
 echo "Исходный массив: ";
 xdebug_var_dump($array);
 
-$sortedArray = quicksort($array);
+$sortedArray = quickSort($array);
 echo "Отсортированный массив: ";
 xdebug_var_dump($sortedArray);
