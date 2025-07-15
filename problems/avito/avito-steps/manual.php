@@ -5,9 +5,9 @@
  */
 final class Solution
 {
-    public function champions(array $statistic): array
+    public function champions(array $statistics): array
     {
-        $totalCompetitionDays = count($statistic);
+        $totalCompetitionDays = count($statistics);
 
         if($totalCompetitionDays <= 0) {
             return [
@@ -18,7 +18,7 @@ final class Solution
 
         $userDays = $userSteps = [];
 
-        foreach ($statistic as $day) {
+        foreach ($statistics as $day) {
             foreach ($day as ['userId' => $userId, 'steps' => $steps]) {
 
                 $userDays[$userId] = ($userDays[$userId] ?? 0) + 1;
@@ -56,7 +56,7 @@ final class Solution
 
 
 
-$statistic = [
+$statistics = [
     [
         ['userId' => 1, 'steps' => 1000],
         ['userId' => 2, 'steps' => 1500]
@@ -67,5 +67,5 @@ $statistic = [
 ];
 
 $solution = new Solution();
-$result = $solution->champions($statistic);
+$result = $solution->champions($statistics);
 print_r($result);
