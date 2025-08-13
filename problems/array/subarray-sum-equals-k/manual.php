@@ -26,11 +26,7 @@ class Solution
                 $ret += $sumCount[$tempSum - $k];
             }
 
-            if (isset($sumCount[$tempSum])) {
-                $sumCount[$tempSum] = $sumCount[$tempSum] + 1;
-            } else {
-                $sumCount[$tempSum] = 1;
-            }
+            $sumCount[$tempSum] = ($sumCount[$tempSum] ?? 0) + 1;
         }
 
         return $ret;
